@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static i18n wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-itempage{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+{% endblock extra_css %}
+
+{% block content %}
+
+    {% include 'home/_header.html' %}
+
+    <main class="main">
+        <div class="figure">
+            <h1>{{ page.title }}</h1>
+
+            <article>
+                {% for block in page.body %}
+                    <section>
+                        {% if block.block_type == 'heading' %}
+                            <h2 class="text-center">{{ block.value }}</h2>
+                        {% elif block.block_type == 'paragraph' %}
+                            {{ block.value }}
+                        {% elif block.block_type == 'image' %}
+                            {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                        {% elif block.block_type == 'embed' %}
+                            <div class="youtube mx-auto">{{ block.value }}</div>
+                        {% endif %}
+                    </section>
+                {% endfor %}
+            </article>
+
+            <p><a href="{{ page.get_parent.url }}">Return to index page</a></p>
+
+        </div>
+    </main>
+
+    {% include 'home/_footer.html' %}
+
+{% endblock content %}

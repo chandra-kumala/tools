@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% load static i18n wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-index{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/article.css' %}">
+
+{% endblock extra_css %}
+
+{% block content %}
+
+    {% include 'home/_header.html' %}
+
+    <main class="main">
+
+        <h1>{{ page.title }}</h1>
+
+        <article>
+            {% for block in page.body %}
+                <section>
+                    {% if block.block_type == 'heading' %}
+                        <h2 class="text-center">{{ block.value }}</h2>
+                    {% elif block.block_type == 'paragraph' %}
+                        {{ block.value }}
+                    {% elif block.block_type == 'image' %}
+                        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                    {% elif block.block_type == 'embed' %}
+                        <div class="youtube mx-auto">{{ block.value }}</div>
+                    {% endif %}
+                </section>
+            {% endfor %}
+
+            {% for post in items %}
+                {% with post=post.specific %}
+                    <section>
+                        <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+                        <p>{{ post.intro | richtext }}</p>
+                        {% for block in post.body %}
+                            {% if block.block_type == 'image' %}
+                                {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                            {% endif %}
+                        {% endfor %}
+                    </section>
+                {% endwith %}
+            {% endfor %}
+
+            {% for block in page.end %}
+                <section>
+                    {% if block.block_type == 'heading' %}
+                        <h2 class="text-center">{{ block.value }}</h2>
+                    {% elif block.block_type == 'paragraph' %}
+                        {{ block.value }}
+                    {% elif block.block_type == 'image' %}
+                        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                    {% elif block.block_type == 'embed' %}
+                        <div class="youtube mx-auto">{{ block.value }}</div>
+                    {% endif %}
+                </section>
+            {% endfor %}
+        </article>
+        <div class="fb-share-button" data-href="http://chandrakumala.pythonanywhere.com/{{ page.slug }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fchandrakumala.pythonanywhere.com%2Fclasses&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+        <p><a href="{{ page.get_parent.url }}">Return to home page</a></p>
+    </main>
+
+    {% include 'home/_footer.html' %}
+
+{% endblock content %}
