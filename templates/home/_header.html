@@ -1,0 +1,29 @@
+{% load static i18n wagtailcore_tags %}
+
+<header class="header" role="banner">
+    <div class="header-link">
+        <a class='' href="tel:+62-061-661-6765" target="_blank" title="Call Us">
+            <i class="icon-smartphone icon3x"></i><span class="d-none d-md-block"></span>
+        </a>
+    </div>
+    <div class="header-link">
+        <a href="/">
+            <img src="{% static "images/logo.svg" %}" alt="" class="figure-space">
+        </a>
+    </div>
+
+    <div class="header-link">
+        <div class="dropdown show">
+            <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="icon-heart icon2x"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="https://www.facebook.com/pages/category/Elementary-School/Inspire-Performing-Arts-Centre-Medan-1392922187623137/"><i class="icon-facebook_circle icon3x"></i><span class="d-none d-md-block">Facebook</span></a>
+                <a class="dropdown-item" href="https://www.instagram.com/ipac.medan"><i class="icon-instagram_circle icon3x"></i><span class="d-none d-md-block">Instagram</span></a>
+                <a class="dropdown-item" href="mailto:name@email.com"><i class="icon-mail icon2x"></i><span class="d-none d-md-block">Email</span></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/contact/"><i class="icon-message icon2x"></i><span class="d-none d-md-block">Contact</span></a>
+            </div> 
+        </div>
+    </div>
+  </header>

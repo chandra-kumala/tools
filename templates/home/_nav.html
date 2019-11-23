@@ -1,0 +1,9 @@
+{% load static i18n wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
+
+{% if page.slug != 'home' %}
+<!-- Items to display on pages other than Home -->
+<p><a href="{{ page.get_parent.url }}"><i class="icon-home icon2x none"></i><span class="d-none d-md-block">Home Page</span></a></p>
+{% else %} 
+<!-- Items to display on the Home page only -->
+<p></p>
+{% endif %}
