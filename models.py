@@ -12,6 +12,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.search import index
 
+import datetime
 
 class Dreamer(models.Model):
     ''' Add DOUBLE streamer field to a page. '''
@@ -100,17 +101,19 @@ class Index(Page, Dreamer, Seo):
 
 class Item(Page, Streamer, Seo):
     parent_page_types = ['tools.Index']
-    # title = models.CharField(max_length=250)
-    intro = RichTextField(blank=True)
+    intro = RichTextField(blank=True) # Shown on search index
+    date = models.CharField(max_length=150)
+    auto_date = models.DateField(("Post date"), default=datetime.date.today)
 
     search_fields = Page.search_fields + [
-        # index.SearchField('title'),
         index.SearchField('intro'),
         index.SearchField('body'),
     ]
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
+        FieldPanel('auto_date'),
+        FieldPanel('date'),
     ] + Streamer.panels
 
     promote_panels = Page.promote_panels + Seo.panels
