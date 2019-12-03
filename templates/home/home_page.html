@@ -10,9 +10,31 @@
 
 
 {% block content %}
-
-
   <main>
+        <div class="main-text"></div>
+
+        <!-- {% if self.seo_title %}
+            <h1>{{ self.seo_title }}</h1>
+        {% else %}
+            <h1>{{ self.title }}</h1>
+        {% endif %} -->
+
+        <article>
+            {% for block in page.body %}
+                <section>
+                    {% if block.block_type == 'heading' %}
+                        <h2 class="text-center">{{ block.value }}</h2>
+                    {% elif block.block_type == 'paragraph' %}
+                        {{ block.value }}
+                    {% elif block.block_type == 'image' %}
+                        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                    {% elif block.block_type == 'embed' %}
+                        <div class="youtube mx-auto">{{ block.value }}</div>
+                    {% endif %}
+                </section>
+            {% endfor %}
+        </article>
+    </div>
 
     {% if page.carousel_items.all %}
         <section class="bd-example">
@@ -50,9 +72,8 @@
     {% endif %}
 
     <div class="main-text"></div>
-        <h1>{{ page.title|richtext }}</h1>
         <article>
-            {% for block in page.body %}
+            {% for block in page.end %}
                 <section>
                     {% if block.block_type == 'heading' %}
                         <h2 class="text-center">{{ block.value }}</h2>
