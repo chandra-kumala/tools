@@ -1,23 +1,22 @@
-{% load static wagtailuserbar wagtailimages_tags %}
+{% load static wagtailuserbar wagtailimages_tags  %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
-        <meta charset="utf-8" />
         <title>
             {% block title %}
-                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
             {% endblock %}
             {% block title_suffix %}
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
+            {% with self.get_site.site_name as site_name %}
+            {% if site_name %}- {{ site_name }}{% endif %}
+            {% endwith %}
             {% endblock %}
         </title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
         <!-- Search engine stuff ... -->
-        <title>{{ page.title }}</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta property="og:title" content="{{ page.seo_title }}" />
         <meta name="description" content="{{ page.search_description }}">
         <meta property="og:description" content="{{ page.search_description }}">
@@ -38,16 +37,30 @@
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
-        <!-- Icon in browser tab -->
-        <link rel="icon" href="{% static 'images/logo-square.png' %}">
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
-            <div id="fb-root"></div>
-            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId=2309818166009348&autoLogAppEvents=1"></script>
+    <body class="{% block body_class %}{% endblock %} container">
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId=2309818166009348&autoLogAppEvents=1"></script>
         {% wagtailuserbar %}
 
+        {% include 'home/_header.html' %}
+        
+        {% include 'home/_nav.html' %}
+
+        {% include 'home/_social.html' %}
+        
         {% block content %}{% endblock %}
+
+        {% if page.slug != 'home' %}
+        <!-- Items to display on pages other than Home -->
+        <p><a href="{{ page.get_parent.url }}"><i class="icon-home icon2x none"></i><span class="d-none d-md-block">Home Page</span></a></p>
+        {% else %} 
+        <!-- Items to display on the Home page only -->
+        <p></p>
+        {% endif %}
+
+        {% include 'home/_footer.html' %}
 
         {# Global javascript #}
         
