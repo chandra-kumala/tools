@@ -1,9 +1,30 @@
 {% load static i18n wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
 
-{% if page.slug != 'home' %}
-<!-- Items to display on pages other than Home -->
-<p><a href="{{ page.get_parent.url }}"><i class="icon-home icon2x none"></i><span class="d-none d-md-block">Home Page</span></a></p>
-{% else %} 
-<!-- Items to display on the Home page only -->
-<p></p>
-{% endif %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Features</a>
+            <a class="nav-item nav-link" href="#">Pricing</a>
+            <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </div>
+        </div>
+      </nav>
+
+
+
+
+
+<ul class="nav navbar-nav">
+    {% for menu in menuitems %}
+        <li>
+            <a href="{{menu.url}}">{{menu.title}}</a>
+        </li>
+    {% endfor %}
+</ul>
+
