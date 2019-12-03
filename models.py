@@ -12,7 +12,9 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.search import index
 
+from wagtail.admin.edit_handlers import FieldPanel
 import datetime
+today = datetime.date.today()
 
 class Dreamer(models.Model):
     ''' Add DOUBLE streamer field to a page. '''
@@ -89,7 +91,13 @@ class Index(Page, Dreamer, Seo):
         context = super().get_context(request)
         items = self.get_children().live().order_by('-first_published_at')
         context['items'] = items
+
         return context
+
+    search_fields = Page.search_fields + [
+        index.SearchField('body'),
+        index.SearchField('end'),
+    ]
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
@@ -105,6 +113,17 @@ class Item(Page, Streamer, Seo):
     date = models.CharField(max_length=150)
     auto_date = models.DateField(("Post date"), default=datetime.date.today)
 
+    def get_context(self, request, *args, **kwargs):
+        context = super(Index, self).get_context(request, *args, **kwargs)
+        context['posts'] = self.posts
+        context['item'] = self
+
+        context['menuitems'] = self.get_children().filter(
+            live=True, show_in_menus=True)
+
+        return context
+
+
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
@@ -115,8 +134,5 @@ class Item(Page, Streamer, Seo):
         FieldPanel('auto_date'),
         FieldPanel('date'),
     ] + Streamer.panels
-
-    promote_panels = Page.promote_panels + Seo.panels
-
 
     promote_panels = Page.promote_panels + Seo.panels
