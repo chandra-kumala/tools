@@ -11,7 +11,6 @@
 
 {% block content %}
   <main>
-        <div class="main-text"></div>
 
         <!-- {% if self.seo_title %}
             <h1>{{ self.seo_title }}</h1>
@@ -19,25 +18,25 @@
             <h1>{{ self.title }}</h1>
         {% endif %} -->
 
-        <article>
-            {% for block in page.body %}
-                <section>
-                    {% if block.block_type == 'heading' %}
-                        <h2 class="text-center">{{ block.value }}</h2>
-                    {% elif block.block_type == 'paragraph' %}
-                        {{ block.value }}
-                    {% elif block.block_type == 'image' %}
-                        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-                    {% elif block.block_type == 'embed' %}
-                        <div class="youtube mx-auto">{{ block.value }}</div>
-                    {% endif %}
-                </section>
-            {% endfor %}
-        </article>
-    </div>
+    <section>
+        {% for block in page.body %}
+            <article>
+                {% if block.block_type == 'heading' %}
+                    <h2 class="text-center">{{ block.value }}</h2>
+                {% elif block.block_type == 'paragraph' %}
+                    {{ block.value }}
+                {% elif block.block_type == 'image' %}
+                    {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                {% elif block.block_type == 'embed' %}
+                    <div class="youtube mx-auto">{{ block.value }}</div>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </section>
 
     {% if page.carousel_items.all %}
-        <section class="bd-example">
+        <!-- <section class="bd-example"> -->
+        <div class="carousel-embed">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -68,13 +67,14 @@
                 <span class="sr-only">Next</span>
             </a>
             </div>
-        </section>
+        </div>
+        <!-- </section> -->
     {% endif %}
 
     <div class="main-text"></div>
-        <article>
+        <section>
             {% for block in page.end %}
-                <section>
+                <article>
                     {% if block.block_type == 'heading' %}
                         <h2 class="text-center">{{ block.value }}</h2>
                     {% elif block.block_type == 'paragraph' %}
@@ -84,14 +84,14 @@
                     {% elif block.block_type == 'embed' %}
                         <div class="youtube mx-auto">{{ block.value }}</div>
                     {% endif %}
-                </section>
+                </article>
             {% endfor %}
-        </article>
+            </section>
     </div>
 
 
     
-    <div class="fb-share-button" data-href="http://chandrakumala.pythonanywhere.com/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fchandrakumala.pythonanywhere.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+    <!-- <div class="fb-share-button" data-href="http://chandrakumala.pythonanywhere.com/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fchandrakumala.pythonanywhere.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
   </main>
 
 
