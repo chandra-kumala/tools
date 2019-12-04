@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load static i18n wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+  <main>
+
+    <section>
+        {% for block in page.body %}
+            <article>
+                {% if block.block_type == 'heading' %}
+                    <h2 class="text-center">{{ block.value }}</h2>
+                {% elif block.block_type == 'paragraph' %}
+                    {{ block.value }}
+                {% elif block.block_type == 'image' %}
+                    {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                {% elif block.block_type == 'embed' %}
+                    <div class="youtube mx-auto">{{ block.value }}</div>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </section>
+
+    <style>
+        .google-embed {
+            position: relative;
+            padding-bottom: 75%; // This is the aspect ratio
+            height: 0;
+            overflow: hidden;
+        }
+        .google-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
+    
+    <div class="google-embed">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d63708.60224716298!2d98.67172502795906!3d3.6358846790568333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x303133cb86bccbe3%3A0x74aa644c1519ba8b!2sChandra+Kumala+School%2C+jalan+kelapa+Blok+O%2C+Komplek+Cemara+Asri%2C+Medan+Estate%2C+Percut+Sei+Tuan%2C+Kabupaten+Deli+Serdang%2C+Sumatera+Utara+20371!3m2!1d3.6357996999999997!2d98.7068305!5e0!3m2!1sen!2sid!4v1527731714570" width="600" height="450" frameborder="0" style="border:0"></iframe>
+    </div>
+
+
+
+    <div class="main-text"></div>
+        <section>
+            {% for block in page.end %}
+                <article>
+                    {% if block.block_type == 'heading' %}
+                        <h2 class="text-center">{{ block.value }}</h2>
+                    {% elif block.block_type == 'paragraph' %}
+                        {{ block.value }}
+                    {% elif block.block_type == 'image' %}
+                        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                    {% elif block.block_type == 'embed' %}
+                        <div class="youtube mx-auto">{{ block.value }}</div>
+                    {% endif %}
+                </article>
+            {% endfor %}
+            </section>
+    </div>
+
+  </main>
+
+{% endblock content %}
