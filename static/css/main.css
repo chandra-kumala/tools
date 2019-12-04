@@ -1,5 +1,5 @@
 main {
-    padding: 10px 0;
+    padding: 0 0;
     margin: 0 auto;
     text-align: center;
 }
@@ -7,9 +7,51 @@ main {
 section{
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
-    max-width: 400px;
+    padding: 0px;
+    max-width: 100%;
     text-align: justify;
+}
+
+.brand {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: bold;
+}
+
+.carousel-embed {
+    position: relative;
+    padding-bottom: 55%; 
+    height: 0;
+    overflow: hidden;
+}
+
+.carousel-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+.google-embed {
+    position: relative;
+    padding-bottom: 75%; 
+    height: 0;
+    overflow: hidden;
+}
+
+.google-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+iframe{
+    width: 600px;
+    height: 450px;
 }
 
 .classes {
@@ -19,8 +61,13 @@ section{
 }
 
 article {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.btn {
+    margin: 1;
+    padding: 1;
 }
 
 /* Fix bulleted lists and paragraph spacing  */
@@ -65,3 +112,45 @@ article {
       width: 100%;
       height: 100%;
   }
+
+
+  // Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) { 
+    
+ }
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) { 
+    /* .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+     */
+     /* .navbar.center .navbar-inner {
+        text-align: center;
+    }
+    
+    .navbar.center .navbar-inner .nav {
+        display:inline-block;
+        float: none;
+    } */
+ }
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) { 
+    section{
+        max-width: 600px;
+    }
+ }
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) { 
+    section{
+        max-width: 800px;
+    }
+ }
