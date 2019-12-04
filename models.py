@@ -137,3 +137,10 @@ class Item(Page, Streamer, Seo):
     ] + Streamer.panels
 
     promote_panels = Page.promote_panels + Seo.panels
+
+class GoogleMaps(Page, Dreamer, Seo):
+    template = 'home/google_maps.html'
+
+
+class GoogleCalendar(Index):
+    template = 'home/google_calendar.html'
