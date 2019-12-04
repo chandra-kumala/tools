@@ -10,15 +10,13 @@
 
 {% block content %}
 
-    {% include 'home/_header.html' %}
-
     <main class="main">
         <div class="figure">
             <h1>{{ page.title }}</h1>
 
-            <article>
+            <section>
                 {% for block in page.body %}
-                    <section>
+                    <article>
                         {% if block.block_type == 'heading' %}
                             <h2 class="text-center">{{ block.value }}</h2>
                         {% elif block.block_type == 'paragraph' %}
@@ -28,15 +26,13 @@
                         {% elif block.block_type == 'embed' %}
                             <div class="youtube mx-auto">{{ block.value }}</div>
                         {% endif %}
-                    </section>
+                    </article>
                 {% endfor %}
-            </article>
+                </section>
 
-            <p><a href="{{ page.get_parent.url }}">Return to index page</a></p>
+            <p><a href="{{ page.get_parent.url }}">Return to {{ page.get_parent.title }}</a></p>
 
         </div>
     </main>
-
-    {% include 'home/_footer.html' %}
 
 {% endblock content %}
