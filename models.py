@@ -110,7 +110,7 @@ class Index(Page, Dreamer, Seo):
 class Item(Page, Streamer, Seo):
     parent_page_types = ['tools.Index']
     intro = RichTextField(blank=True) # Shown on search index
-    date = models.CharField(max_length=150)
+    date = models.CharField(max_length=150, blank=True)
     auto_date = models.DateField(("Post date"), default=datetime.date.today)
 
     def get_context(self, request, *args, **kwargs):
