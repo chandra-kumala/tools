@@ -115,8 +115,8 @@ class Item(Page, Streamer, Seo):
     auto_date = models.DateField(("Post date"), default=datetime.date.today)
 
     def get_context(self, request, *args, **kwargs):
-        context = super(Index, self).get_context(request, *args, **kwargs)
-        context['posts'] = self.posts
+        context = super().get_context(request, *args, **kwargs)
+        # context['posts'] = self.posts
         context['item'] = self
 
         context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
