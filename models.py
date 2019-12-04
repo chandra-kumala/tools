@@ -91,6 +91,7 @@ class Index(Page, Dreamer, Seo):
         context = super().get_context(request)
         items = self.get_children().live().order_by('-first_published_at')
         context['items'] = items
+        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
 
         return context
 
@@ -118,8 +119,8 @@ class Item(Page, Streamer, Seo):
         context['posts'] = self.posts
         context['item'] = self
 
-        context['menuitems'] = self.get_children().filter(
-            live=True, show_in_menus=True)
+        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+
 
         return context
 
