@@ -140,7 +140,48 @@ class Item(Page, Streamer, Seo):
 
 class GoogleMaps(Page, Dreamer, Seo):
     template = 'home/google_maps.html'
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['tools.Item']
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+
+        return context
+
+    search_fields = Page.search_fields + [
+        index.SearchField('body'),
+        index.SearchField('end'),
+    ]
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+        StreamFieldPanel('end'),
+    ]
+    
+    promote_panels = Page.promote_panels + Seo.panels
 
 
-class GoogleCalendar(Index):
+class GoogleCalendar(Page, Dreamer, Seo):
     template = 'home/google_calendar.html'
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['tools.Item']
+
+    def get_context(self, request):
+        # Update context to include only published posts, ordered by reverse-chron
+        context = super().get_context(request)
+        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+
+        return context
+
+    search_fields = Page.search_fields + [
+        index.SearchField('body'),
+        index.SearchField('end'),
+    ]
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+        StreamFieldPanel('end'),
+    ]
+    
+    promote_panels = Page.promote_panels + Seo.panels
