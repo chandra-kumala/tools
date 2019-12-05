@@ -118,9 +118,7 @@ class Item(Page, Streamer, Seo):
         context = super().get_context(request, *args, **kwargs)
         # context['posts'] = self.posts
         context['item'] = self
-
         context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
-
 
         return context
 
