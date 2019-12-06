@@ -141,6 +141,10 @@ class GoogleMaps(Page, Dreamer, Seo):
     parent_page_types = ['home.HomePage']
     subpage_types = ['tools.Item']
 
+    # mapurl = models.URLField(null=True, blank=True)
+    mapurl = models.CharField("Google Map URL", max_length=1500, null=True, blank=True)
+
+
     def get_context(self, request):
         context = super().get_context(request)
         context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
@@ -154,6 +158,7 @@ class GoogleMaps(Page, Dreamer, Seo):
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
+        FieldPanel('mapurl'),
         StreamFieldPanel('end'),
     ]
     
@@ -164,6 +169,9 @@ class GoogleCalendar(Page, Dreamer, Seo):
     template = 'home/google_calendar.html'
     parent_page_types = ['home.HomePage']
     subpage_types = ['tools.Item']
+
+    calendarurl = models.URLField("URL for calendar", null=True, blank=True)
+
 
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
@@ -179,6 +187,7 @@ class GoogleCalendar(Page, Dreamer, Seo):
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
+        FieldPanel('calendarurl'),
         StreamFieldPanel('end'),
     ]
     
