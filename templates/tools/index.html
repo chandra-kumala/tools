@@ -27,20 +27,26 @@
                     {% endif %}
                 </article>
             {% endfor %}
+            {% if items %}
+                {% for post in items %}
+                    {% with post=post.specific %}
+                        <article>
+                            <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+                            <p>{{ post.intro | richtext }}</p>
+                            {% for block in post.body %}
+                                {% if block.block_type == 'image' %}
+                                    {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+                                {% endif %}
+                            {% endfor %}
+                        </article>
+                    {% endwith %}
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p>Sorry no entries yet, please check back later.</p>
+                </div>
+            {% endif %}
 
-            {% for post in items %}
-                {% with post=post.specific %}
-                    <article>
-                        <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
-                        <p>{{ post.intro | richtext }}</p>
-                        {% for block in post.body %}
-                            {% if block.block_type == 'image' %}
-                                {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-                            {% endif %}
-                        {% endfor %}
-                    </article>
-                {% endwith %}
-            {% endfor %}
 
             {% for block in page.end %}
                 <article>
