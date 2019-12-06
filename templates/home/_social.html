@@ -1,21 +1,13 @@
       <!-- Social buttons -->
-      
-      <section>
-          <div class="text-center">
-                <a class="text-danger py-0 fa-2x" href="https://drive.google.com/file/d/0B5YwHuVFXziGeXY3UTF1U3ZMMElqVEZYVWUwSjg1WlBJa3FZ/view?usp=sharing" target="_blank" title="Latest School Bulletin"><i class="fas fa-newspaper fa-fw"></i></a>
+      {% load wagtailcore_tags social_tags %}
 
-                <!-- <a class="text-primary py-0 fa-2x" href="https://www.facebook.com/ChandraKumalaSchool/" target="_blank" title="Facebook"><i class="fab fa-facebook-square fa-fw"></i></a> -->
+      {% if not social_icons.all %}
+        <section>
+            <div class="text-center">
+                    {% social_icons %}
+                </div>
+        </section>
+      {% endif %}
 
-                <!-- <a class="text-danger py-0 fa-2x" href="https://www.youtube.com/chandrakumalaschool" target="_blank"  title="Youtube"><i class="fab fa-youtube fa-fw"></i></a> -->
-
-                <a class="text-info rounded-circle py-0 fa-2x" href="https://www.instagram.com/chandrakumalaofficial/" target="_blank" title="Instagram"><i class="fab fa-instagram fa-fw"></i></a>
-
-                <a class="text-warning py-0 fa-2x" href="/calendar/" title="Calendar"><i class="fa fa-calendar-alt fa-fw" aria-hidden="true"></i></a>
-
-                <a class="text-success py-0 fa-2x" href="https://goo.gl/maps/hR95oHnVUdv" target="_blank" title="Navigate to school"><i class="fas fa-map-marker-alt fa-fw"></i></a>
-
-                <a class="text-secondary py-0 fa-2x" href="tel:+62-061-661-6765" target="_blank"  title="Call Us"><i class="fas fa-mobile-alt fa-fw"></i></a>
-            </div>
-      </section>
 
       <!-- Social buttons -->

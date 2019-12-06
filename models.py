@@ -9,6 +9,8 @@ from wagtail.core import blocks
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.snippets.models import register_snippet
+
 
 from wagtail.search import index
 
@@ -192,3 +194,22 @@ class GoogleCalendar(Page, Dreamer, Seo):
     ]
     
     promote_panels = Page.promote_panels + Seo.panels
+
+
+
+@register_snippet
+class Social(models.Model):
+    css = models.CharField("List CSS Classes (eg. text-primary py-0 fa-2x)", max_length=255, null=True, blank=True) # eg. text-primary py-0 fa-2x
+    title = models.CharField("Title (eg Latest School Bulletin)", max_length=255, null=True, blank=True) # eg. Latest School Bulletin
+    link = models.CharField("Link to resource (eg tel:+62-061-661-6765)", max_length=255, null=True, blank=True) # 
+    icon = models.CharField("FA Icon (eg. fas fa-newspaper fa-fw)", max_length=255, null=True, blank=True) 
+
+    panels = [
+        FieldPanel('css'),
+        FieldPanel('link'),
+        FieldPanel('title'),
+        FieldPanel('icon'),
+    ]
+
+    def __str__(self):
+        return self.title
