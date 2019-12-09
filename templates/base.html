@@ -43,22 +43,23 @@
         <!-- <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId=2309818166009348&autoLogAppEvents=1"></script> -->
         {% wagtailuserbar %}
+        {% load social_tags %}
 
         {% include 'home/_header.html' %}
-        
-        {% include 'home/_nav.html' %}
 
-        {% include 'home/_social.html' %}
-        
-        {% block content %}{% endblock %}
-<main>
-        {% if page.slug != 'home' %}
-        <!-- Items to display on pages other than Home -->
-        <p><a href="{{ page.get_parent.url }}"><i class="fas fa-home"></i><span class="d-none d-md-block">Home Page</span></a></p>
-        {% else %} 
-        <!-- Items to display on the Home page only -->
-        {% endif %}
-    </main>
+        <main class="main">
+            {% include 'home/_nav.html' %}
+       
+            {% include 'home/_social.html' %}
+
+            {% block content %}{% endblock %}
+
+            {% if page.slug != 'home' %}
+            <!-- Items to display on pages other than Home -->
+            <p><a href="{{ page.get_parent.url }}">Return to {{ page.get_parent.title }}</a></p>
+            {% else %}<!-- Items to display on the Home page only -->{% endif %}
+        </main>
+
         {% include 'home/_footer.html' %}
 
         {# Global javascript #}
