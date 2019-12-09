@@ -199,16 +199,18 @@ class GoogleCalendar(Page, Dreamer, Seo):
 
 @register_snippet
 class Social(models.Model):
-    css = models.CharField("List CSS Classes (eg. text-primary py-0 fa-2x)", max_length=255, null=True, blank=True) # eg. text-primary py-0 fa-2x
-    title = models.CharField("Title (eg Latest School Bulletin)", max_length=255, null=True, blank=True) # eg. Latest School Bulletin
+    css = models.CharField("List CSS Classes (eg. text-primary py-0)", max_length=255, null=True, blank=True) # eg. text-primary py-0 fa-2x
+    title = models.CharField("Title (eg. December Bulletin)", max_length=255, null=True, blank=True) # eg. Latest School Bulletin
     link = models.CharField("Link to resource (eg tel:+62-061-661-6765)", max_length=255, null=True, blank=True) # 
-    icon = models.CharField("FA Icon (eg. fas fa-newspaper fa-fw)", max_length=255, null=True, blank=True) 
+    icon = models.CharField("FA Icon (eg. fas fa-newspaper fa-fw fa-2x)", max_length=255, null=True, blank=True) 
+    text = models.CharField("Description (eg. Latest School Bulletin)", max_length=255, null=True, blank=True) # eg. Decembers Bulletin
 
     panels = [
         FieldPanel('css'),
         FieldPanel('link'),
         FieldPanel('title'),
         FieldPanel('icon'),
+        FieldPanel('text'),
     ]
 
     def __str__(self):
