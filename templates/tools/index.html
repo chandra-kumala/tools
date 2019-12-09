@@ -27,20 +27,26 @@
                     {% endif %}
                 </article>
             {% endfor %}
+            
             {% if items %}
-                {% for post in items %}
-                    {% with post=post.specific %}
-                        <article>
-                            <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
-                            <p>{{ post.intro | richtext }}</p>
-                            {% for block in post.body %}
-                                {% if block.block_type == 'image' %}
-                                    {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-                                {% endif %}
-                            {% endfor %}
-                        </article>
-                    {% endwith %}
-                {% endfor %}
+                <section class="card-columns">
+                    {% for post in items %}
+                        {% with post=post.specific %}
+                                <div class="card mb-3">
+        
+
+                                    {% with post.main_image as main_image %}
+                                        {% if main_image %}{% image main_image fill-300x150 class="card-img-top" %}{% endif %}
+                                    {% endwith %}
+                                    <div class="card-body">
+                                        {% if post.title %}<h5 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h5>{% endif %}
+                                        {% if post.intro %}<p class="card-text">{{ post.intro | richtext }}</p>{% endif %}
+                                        {% if post.date %}<p class="card-text"><small class="text-muted">{{ post.date}}</small></p>{% endif %}
+                                    </div>
+                                </div>
+                        {% endwith %}
+                    {% endfor %}
+                </section>
             {% else %}
                 <div class="col-md-12">
                     <p>Sorry no entries yet, please check back later.</p>
