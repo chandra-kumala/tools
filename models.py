@@ -113,8 +113,6 @@ class Index(Page, Dreamer, Seo):
 class Item(Page, Streamer, Seo):
     parent_page_types = ['tools.Index']
     intro = RichTextField(blank=True) # Shown on search index
-    date = models.CharField(max_length=150, blank=True)
-    auto_date = models.DateField(("Post date"), default=datetime.date.today)
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -123,7 +121,13 @@ class Item(Page, Streamer, Seo):
         context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
 
         return context
-
+    
+    def main_image(self):
+        gallery_item = self.gallery_images.first()
+        if gallery_item:
+            return gallery_item.image
+        else:
+            return None
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
@@ -132,11 +136,21 @@ class Item(Page, Streamer, Seo):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
-        FieldPanel('auto_date'),
-        FieldPanel('date'),
     ] + Streamer.panels
 
     promote_panels = Page.promote_panels + Seo.panels
+
+class ItemImage(Orderable):
+    page = ParentalKey(Item, on_delete=models.CASCADE, related_name='gallery_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+    caption = models.CharField(blank=True, max_length=250)
+
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('caption'),
+    ]
 
 class GoogleMaps(Page, Dreamer, Seo):
     template = 'home/google_maps.html'
