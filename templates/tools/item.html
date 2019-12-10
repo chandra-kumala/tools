@@ -10,31 +10,32 @@
 
 {% block content %}
 
-        <div class="figure">
-            <h1>{{ page.title }}</h1>
-
-            {% for item in page.gallery_images.all %}
-                <div style="float: left; margin: 10px">
-                    {% image item.image fill-320x240 %}
-                    <p>{{ item.caption }}</p>
-                </div>
-            {% endfor %}
-            <section>
-                {% for block in page.body %}
-                    <article>
-                        {% if block.block_type == 'heading' %}
-                            <h2 class="text-center">{{ block.value }}</h2>
-                        {% elif block.block_type == 'paragraph' %}
-                            {{ block.value }}
-                        {% elif block.block_type == 'image' %}
-                            {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-                        {% elif block.block_type == 'embed' %}
-                            <div class="youtube mx-auto">{{ block.value }}</div>
-                        {% endif %}
-                    </article>
-                {% endfor %}
-            </section>
-
+<div class="figure">
+    <h1>{{ page.title }}</h1>
+    <section>
+        {% for item in page.gallery_images.all %}
+        <div style="float: left; margin: 10px">
+            {% image item.image fill-320x240 %}
+            <p>{{ item.caption }}</p>
         </div>
+        {% endfor %}
+    </section>
+    <section>
+        {% for block in page.body %}
+        <article>
+            {% if block.block_type == 'heading' %}
+            <h2 class="text-center">{{ block.value }}</h2>
+            {% elif block.block_type == 'paragraph' %}
+            {{ block.value }}
+            {% elif block.block_type == 'image' %}
+            {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+            {% elif block.block_type == 'embed' %}
+            <div class="youtube mx-auto">{{ block.value }}</div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </section>
+
+</div>
 
 {% endblock content %}
