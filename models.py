@@ -1,7 +1,5 @@
 from django.db import models
-
 from modelcluster.fields import ParentalKey
-
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.embeds.blocks import EmbedBlock
@@ -10,11 +8,9 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePane
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
-
-
 from wagtail.search import index
-
 from wagtail.admin.edit_handlers import FieldPanel
+
 
 class Dreamer(models.Model):
     ''' Add DOUBLE streamer field to a page. '''
@@ -24,7 +20,7 @@ class Dreamer(models.Model):
         ('image', ImageChooserBlock()),
         ('embed', EmbedBlock()),
     ], null=True, blank=True,)
-    
+
     end = StreamField([
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
@@ -36,11 +32,12 @@ class Dreamer(models.Model):
         StreamFieldPanel('body'),
         StreamFieldPanel('end'),
     ]
-    
+
     class Meta:
         """Abstract Model."""
 
         abstract = True
+
 
 class Streamer(models.Model):
     ''' Add SINGLE streamer field to a page. '''
@@ -54,11 +51,12 @@ class Streamer(models.Model):
     panels = [
         StreamFieldPanel('body'),
     ]
-    
+
     class Meta:
         """Abstract Model."""
 
         abstract = True
+
 
 class Seo(models.Model):
     ''' Add extra seo fields to pages such as icons. '''
@@ -75,7 +73,7 @@ class Seo(models.Model):
     panels = [
         ImageChooserPanel('seo_image'),
     ]
-    
+
     class Meta:
         """Abstract Model."""
 
@@ -91,7 +89,8 @@ class Index(Page, Dreamer, Seo):
         context = super().get_context(request)
         items = self.get_children().live().order_by('-first_published_at')
         context['items'] = items
-        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+        context['menuitems'] = request.site.root_page.get_descendants(
+            inclusive=True).live().in_menu()
 
         return context
 
@@ -104,21 +103,22 @@ class Index(Page, Dreamer, Seo):
         StreamFieldPanel('body'),
         StreamFieldPanel('end'),
     ]
-    
+
     promote_panels = Page.promote_panels + Seo.panels
 
 
 class Item(Page, Streamer, Seo):
     parent_page_types = ['tools.Index']
-    intro = RichTextField(blank=True) # Shown on search index
+    intro = RichTextField(blank=True)  # Shown on search index
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['item'] = self
-        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+        context['menuitems'] = request.site.root_page.get_descendants(
+            inclusive=True).live().in_menu()
 
         return context
-    
+
     def main_image(self):
         gallery_item = self.gallery_images.first()
         if gallery_item:
@@ -138,8 +138,10 @@ class Item(Page, Streamer, Seo):
 
     promote_panels = Page.promote_panels + Seo.panels
 
+
 class ItemImage(Orderable):
-    page = ParentalKey(Item, on_delete=models.CASCADE, related_name='gallery_images')
+    page = ParentalKey(Item, on_delete=models.CASCADE,
+                       related_name='gallery_images')
     image = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
     )
@@ -156,11 +158,13 @@ class GoogleMaps(Page, Dreamer, Seo):
     parent_page_types = ['home.HomePage']
     subpage_types = ['tools.Item']
 
-    mapurl = models.CharField("Google Map URL", max_length=1500, null=True, blank=True)
+    mapurl = models.CharField(
+        "Google Map URL", max_length=1500, null=True, blank=True)
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+        context['menuitems'] = request.site.root_page.get_descendants(
+            inclusive=True).live().in_menu()
 
         return context
 
@@ -174,7 +178,7 @@ class GoogleMaps(Page, Dreamer, Seo):
         FieldPanel('mapurl'),
         StreamFieldPanel('end'),
     ]
-    
+
     promote_panels = Page.promote_panels + Seo.panels
 
 
@@ -188,7 +192,8 @@ class GoogleCalendar(Page, Dreamer, Seo):
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
         context = super().get_context(request)
-        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+        context['menuitems'] = request.site.root_page.get_descendants(
+            inclusive=True).live().in_menu()
 
         return context
 
@@ -202,17 +207,22 @@ class GoogleCalendar(Page, Dreamer, Seo):
         FieldPanel('calendarurl'),
         StreamFieldPanel('end'),
     ]
-    
+
     promote_panels = Page.promote_panels + Seo.panels
 
 
 @register_snippet
 class Social(models.Model):
-    css = models.CharField("List CSS Classes (eg. text-primary py-0)", max_length=255, null=True, blank=True) # eg. text-primary py-0 fa-2x
-    title = models.CharField("Title (eg. December Bulletin)", max_length=255, null=True, blank=True) # eg. Latest School Bulletin
-    link = models.CharField("Link to resource (eg tel:+62-061-661-6765)", max_length=255, null=True, blank=True) # 
-    icon = models.CharField("FA Icon (eg. fas fa-newspaper fa-fw fa-2x)", max_length=255, null=True, blank=True) 
-    text = models.CharField("Description (eg. Latest School Bulletin)", max_length=255, null=True, blank=True) # eg. Decembers Bulletin
+    css = models.CharField("List CSS Classes (eg. text-primary py-0)",
+                           max_length=255, null=True, blank=True)  # eg. text-primary py-0 fa-2x
+    title = models.CharField("Title (eg. December Bulletin)", max_length=255,
+                             null=True, blank=True)  # eg. Latest School Bulletin
+    link = models.CharField(
+        "Link to resource (eg tel:+62-061-661-6765)", max_length=255, null=True, blank=True)
+    icon = models.CharField(
+        "FA Icon (eg. fas fa-newspaper fa-fw fa-2x)", max_length=255, null=True, blank=True)
+    text = models.CharField("Description (eg. Latest School Bulletin)",
+                            max_length=255, null=True, blank=True)  # eg. Decembers Bulletin
 
     panels = [
         FieldPanel('css'),
