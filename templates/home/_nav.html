@@ -1,6 +1,5 @@
 {% load static i18n wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
 
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light my-0 d-flex justify-content-between">
         <a class="navbar-brand brand" href="#"> 
         <img class="mx-3 d-none d-block d-sm-none" src="{% static "images/cks/logo-blue.svg" %}" width="55px" alt="Logo Image"><span class="d-none d-sm-block">Chandra Kumala School</span>
@@ -11,13 +10,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
-              <!-- {% if page.slug != 'home'  %}<a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>{% endif %} -->
-              <!-- {% if page.slug != 'about' %}<a class="nav-item nav-link active" href="/about">About <span class="sr-only">(current)</span></a>{% endif %} -->
               {% for menu in menuitems   %}<a class="nav-item nav-link active" href="{{menu.url}}">{{menu.title}}</a>{% endfor %}
-              <!-- <a class="nav-item nav-link" href="#">Features</a>
-            <a class="nav-item nav-link" href="#">Pricing</a>
-            <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
-
           </div>
         </div>
       </nav>
