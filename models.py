@@ -136,6 +136,7 @@ class Item(Page, Streamer, Seo):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
+        InlinePanel('gallery_images', label="Index page images"),
     ] + Streamer.panels
 
     promote_panels = Page.promote_panels + Seo.panels
