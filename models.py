@@ -15,8 +15,6 @@ from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
 from wagtail.admin.edit_handlers import FieldPanel
-import datetime
-today = datetime.date.today()
 
 class Dreamer(models.Model):
     ''' Add DOUBLE streamer field to a page. '''
@@ -116,7 +114,6 @@ class Item(Page, Streamer, Seo):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        # context['posts'] = self.posts
         context['item'] = self
         context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
 
@@ -153,14 +150,13 @@ class ItemImage(Orderable):
         FieldPanel('caption'),
     ]
 
+
 class GoogleMaps(Page, Dreamer, Seo):
     template = 'home/google_maps.html'
     parent_page_types = ['home.HomePage']
     subpage_types = ['tools.Item']
 
-    # mapurl = models.URLField(null=True, blank=True)
     mapurl = models.CharField("Google Map URL", max_length=1500, null=True, blank=True)
-
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -189,7 +185,6 @@ class GoogleCalendar(Page, Dreamer, Seo):
 
     calendarurl = models.URLField("URL for calendar", null=True, blank=True)
 
-
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
         context = super().get_context(request)
@@ -209,7 +204,6 @@ class GoogleCalendar(Page, Dreamer, Seo):
     ]
     
     promote_panels = Page.promote_panels + Seo.panels
-
 
 
 @register_snippet
