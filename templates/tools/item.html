@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<div class="figure">
+
     <h1>{{ page.title }}</h1>
     <!-- <section>
         {% for item in page.gallery_images.all %}
@@ -37,6 +37,52 @@
         {% endfor %}
     </section>
 
-</div>
+    <section>
+            {% if item %}
+                <section class="card-columns">
+
+                    <div class="card mb-3">
+                        {% with item.main_image as main_image %}
+                            {% if main_image %}{% image main_image fill-300x150 class="card-img-top" %}{% endif %}
+                        {% endwith %}
+                        <div class="card-body">
+                            {% if item.title %}<h5 class="card-title"><a href="{% pageurl item %}">{{ item.title }}</a></h5>{% endif %}
+                            {% if item.text %}<p class="card-text">{{ item.text | richtext }}</p>{% endif %}
+                            {% if item.date %}<p class="card-text"><small class="text-muted">{{ item.date}}</small></p>{% endif %}
+                        </div>
+                    </div>
+
+                </section>
+            {% else %}
+                <div class="col-md-12 text-center">
+                    <p>Sorry no entries yet, please check back later.</p>
+                </div>
+            {% endif %}
+        </section>
+
+    <section>
+            {% if items %}
+                <section class="card-columns">
+                    {% for post in items %}
+                        {% with post=post.specific %}
+                                <div class="card mb-3">
+                                    {% with post.main_image as main_image %}
+                                        {% if main_image %}{% image main_image fill-300x150 class="card-img-top" %}{% endif %}
+                                    {% endwith %}
+                                    <div class="card-body">
+                                        {% if post.title %}<h5 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h5>{% endif %}
+                                        {% if post.text %}<p class="card-text">{{ post.text | richtext }}</p>{% endif %}
+                                        {% if post.date %}<p class="card-text"><small class="text-muted">{{ post.date}}</small></p>{% endif %}
+                                    </div>
+                                </div>
+                        {% endwith %}
+                    {% endfor %}
+                </section>
+            {% else %}
+                <div class="col-md-12 text-center">
+                    <p>Sorry no entries yet, please check back later.</p>
+                </div>
+            {% endif %}
+        </section>
 
 {% endblock content %}

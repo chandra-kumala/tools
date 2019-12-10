@@ -37,7 +37,7 @@
                             {% endwith %}
                             <div class="card-body">
                                 {% if post.title %}<h5 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h5>{% endif %}
-                                {% if post.intro %}<p class="card-text">{{ post.intro | richtext }}</p>{% endif %}
+                                {% if post.text %}<p class="card-text">{{ post.text | richtext }}</p>{% endif %}
                                 {% if post.date %}<p class="card-text"><small class="text-muted">{{ post.date}}</small></p>{% endif %}
                             </div>
                         </div>
@@ -45,7 +45,7 @@
             {% endfor %}
         </section>
     {% else %}
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
             <p>Sorry no entries yet, please check back later.</p>
         </div>
     {% endif %}

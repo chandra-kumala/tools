@@ -107,13 +107,15 @@ class Index(Page, Dreamer, Seo):
     promote_panels = Page.promote_panels + Seo.panels
 
 
-class Item(Page, Streamer, Seo):
+class Item(Page, Seo):
     parent_page_types = ['tools.Index']
-    intro = RichTextField(blank=True)  # Shown on search index
+    text = RichTextField(blank=True)  # Shown on search index
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['item'] = self
+        items = self.get_siblings(inclusive=False).live().order_by('-first_published_at')
+        context['items'] = items
         context['menuitems'] = request.site.root_page.get_descendants(
             inclusive=True).live().in_menu()
 
@@ -127,14 +129,13 @@ class Item(Page, Streamer, Seo):
             return None
 
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField('text'),
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('text', classname="full"),
         InlinePanel('gallery_images', label="Index page images"),
-    ] + Streamer.panels
+    ] 
 
     promote_panels = Page.promote_panels + Seo.panels
 
