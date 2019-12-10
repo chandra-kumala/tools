@@ -30,7 +30,7 @@
     {% if items %}
         <section class="card-columns">
             {% for post in items %}
-                {% with post=post.specific %}}
+                {% with post=post.specific %}
                         <div class="card mb-3">
                             {% with post.main_image as main_image %}
                                 {% if main_image %}{% image main_image fill-300x150 class="card-img-top" %}{% endif %}
