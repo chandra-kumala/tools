@@ -6,6 +6,13 @@ article{
     text-align: justify;
 }
 
+section{	
+    margin-left: auto;	
+    margin-right: auto;	
+    padding: 0px;	
+    max-width: 100%;	
+    text-align: justify;	    
+}   
 
 * {
     font-family: 'Playfair Display', serif;
