@@ -28,11 +28,12 @@
 
 <article class="">
     {% if items %}
-    <section class="">
-        <row class="d-flex flex-row">
+    <section class="container">
+        <div class="row">
             {% for post in items %}
+
             {% with post=post.specific %}
-            <div class="card mb-3 col-4">
+            <div class="card mb-3 col-md">
                 {% with post.main_image as main_image %}
                 {% if main_image %}{% image main_image fill-300x150 class="card-img-top" %}{% endif %}
                 {% endwith %}
@@ -46,17 +47,17 @@
             </div>
             {% endwith %}
             {% if forloop.counter|divisibleby:3 and not forloop.last %}
-        </row>
+        </div>
     </section>
     <section>
-        <row class="d-flex flex-row">
+        <div class="row">
             {% endif %}
             {% endfor %}
-        </row>
+        </div>
     </section>
     {% else %}
     <div class="col-md-12 text-center">
-        <p>Sorry no entries yet, please check back later.</p>
+        <p>Sorry no other entries yet, please check back later.</p>
     </div>
     {% endif %}
 </article>
