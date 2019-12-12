@@ -2,6 +2,7 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.blocks import URLBlock, TextBlock, StructBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.core import blocks
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
@@ -12,21 +13,24 @@ from wagtail.search import index
 from wagtail.admin.edit_handlers import FieldPanel
 
 
+class CommonStreamBlock(blocks.StreamBlock):
+    heading = blocks.CharBlock(classname="full title")
+    paragraph = blocks.RichTextBlock()
+    embed = EmbedBlock()
+    image = ImageChooserBlock()
+    buttonLink = blocks.StructBlock([
+        ('text', blocks.TextBlock()),
+        ('link', blocks.URLBlock(label="external URL", required=False)),
+    ])
+
+    class Meta:
+        icon = 'cogs'
+
+
 class Dreamer(models.Model):
     ''' Add DOUBLE streamer field to a page. '''
-    body = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('embed', EmbedBlock()),
-    ], null=True, blank=True,)
-
-    end = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('embed', EmbedBlock()),
-    ], null=True, blank=True,)
+    body = StreamField(CommonStreamBlock(), null=True, blank=True,)
+    end = StreamField(CommonStreamBlock(), null=True, blank=True,)
 
     panels = [
         StreamFieldPanel('body'),
@@ -41,12 +45,7 @@ class Dreamer(models.Model):
 
 class Streamer(models.Model):
     ''' Add SINGLE streamer field to a page. '''
-    body = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('embed', EmbedBlock()),
-    ], null=True, blank=True,)
+    body = StreamField(CommonStreamBlock(), null=True, blank=True,)
 
     panels = [
         StreamFieldPanel('body'),
@@ -64,7 +63,6 @@ class Seo(models.Model):
         'wagtailimages.Image',
         null=True,
         blank=True,
-        # default='media/images/default.png',
         on_delete=models.SET_NULL,
         related_name='+',
         help_text="Optional social media image 300x300px image < 300kb."
@@ -114,7 +112,8 @@ class Item(Page, Seo):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['item'] = self
-        items = self.get_siblings(inclusive=False).live().order_by('-first_published_at')
+        items = self.get_siblings(
+            inclusive=False).live().order_by('-first_published_at')
         context['items'] = items
         context['menuitems'] = request.site.root_page.get_descendants(
             inclusive=True).live().in_menu()
@@ -135,7 +134,7 @@ class Item(Page, Seo):
     content_panels = Page.content_panels + [
         FieldPanel('text', classname="full"),
         InlinePanel('gallery_images', label="Index page images"),
-    ] 
+    ]
 
     promote_panels = Page.promote_panels + Seo.panels
 
