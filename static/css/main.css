@@ -5,15 +5,13 @@ main {
 }
 
 section{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-left: auto;
     margin-right: auto;
     padding: 0px;
     max-width: 100%;
     text-align: justify;
 }
+
 
 .brand {
     font-family: 'Libre Baskerville', serif;
