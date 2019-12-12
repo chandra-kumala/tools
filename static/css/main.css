@@ -1,17 +1,15 @@
 main {
-    padding: 0 0;
-    margin: 0 auto;
     text-align: center;
 }
 
-section{
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0px;
-    max-width: 100%;
+article{
     text-align: justify;
 }
 
+
+* {
+    font-family: 'Playfair Display', serif;
+}
 
 .brand {
     font-family: 'Libre Baskerville', serif;
