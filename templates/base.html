@@ -18,11 +18,10 @@
     <!-- Search engine stuff ... -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- <meta property="og:title" content="{{ page.seo_title }}" /> -->
+    <meta property="og:title" content="{{ page.seo_title }}" />
     <meta name="description" content="{{ page.search_description }}">
     <meta property="og:description" content="{{ page.search_description }}">
-    <meta property="og:image"
-        content="{% if page.seo_image %}{% image page.seo_image fill-300x300 as img %}{{img.url}}{% else %}{% static 'images/cks/logo-square.png' %}{% endif%}">
+    <meta property="og:image" content="{% if page.seo_image %}{% image page.seo_image fill-300x300 as img %}{{img.url}}{% else %}{% static 'images/cks/logo-square.png' %}{% endif%}">
     <meta property="og:url" content="{{ request.META.HTTP_HOST }}" />
     <meta property="og:type" content="article" />
 
