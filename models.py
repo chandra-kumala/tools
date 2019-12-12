@@ -109,7 +109,7 @@ class Index(Page, Dreamer, Seo):
 
 class Item(Page, Streamer, Seo):
     parent_page_types = ['tools.Index']
-    intro = RichTextField(blank=True)  # Shown on search index
+    text = RichTextField(blank=True)  # Shown on search index
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -127,12 +127,12 @@ class Item(Page, Streamer, Seo):
             return None
 
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
+        index.SearchField('text'),
         index.SearchField('body'),
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('text', classname="full"),
         InlinePanel('gallery_images', label="Index page images"),
     ] + Streamer.panels
 
