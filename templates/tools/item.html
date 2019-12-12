@@ -31,9 +31,9 @@
 </div>
 
 
-<article class="">
+<section class="">
     {% if items %}
-    <section class="container">
+    <article class="container">
         <div class="row">
             {% for post in items %}
 
@@ -53,18 +53,18 @@
             {% endwith %}
             {% if forloop.counter|divisibleby:3 and not forloop.last %}
         </div>
-    </section>
-    <section>
+    </article>
+    <article>
         <div class="row">
             {% endif %}
             {% endfor %}
         </div>
-    </section>
+    </article>
     {% else %}
     <div class="col-md-12 text-center">
         <p>Sorry no other entries yet, please check back later.</p>
     </div>
     {% endif %}
-</article>
+</>
 
 {% endblock content %}
