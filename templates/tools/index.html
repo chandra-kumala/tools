@@ -12,58 +12,71 @@
 
 <section>
     {% for block in page.body %}
-        <article>
-            {% if block.block_type == 'heading' %}
-                <h2 class="text-center">{{ block.value }}</h2>
-            {% elif block.block_type == 'paragraph' %}
-                {{ block.value }}
-            {% elif block.block_type == 'image' %}
-                {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-            {% elif block.block_type == 'embed' %}
-                <div class="youtube mx-auto">{{ block.value }}</div>
-            {% endif %}
-        </article>
+    <article>
+        {% if block.block_type == 'heading' %}
+        <h2 class="text-center">{{ block.value }}</h2>
+        {% elif block.block_type == 'paragraph' %}
+        {{ block.value }}
+        {% elif block.block_type == 'image' %}
+        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+        {% elif block.block_type == 'embed' %}
+        <div class="youtube mx-auto">{{ block.value }}</div>
+        {% endif %}
+    </article>
     {% endfor %}
 </section>
-        
-<section>
+
+<article class="">
     {% if items %}
-        <section class="card-columns">
+    <section class="">
+        <row class="d-flex flex-row">
             {% for post in items %}
-                {% with post=post.specific %}
-                        <div class="card mb-3">
-                            {% with post.main_image as main_image %}
-                                {% if main_image %}{% image main_image fill-300x150 class="card-img-top" %}{% endif %}
-                            {% endwith %}
-                            <div class="card-body">
-                                {% if post.title %}<h5 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h5>{% endif %}
-                                {% if post.intro %}<p class="card-text">{{ post.intro | richtext }}</p>{% endif %}
-                                {% if post.date %}<p class="card-text"><small class="text-muted">{{ post.date}}</small></p>{% endif %}
-                            </div>
-                        </div>
+
+            {% with post=post.specific %}
+            <div class="card mb-3 col-4">
+                {% with post.main_image as main_image %}
+                {% if main_image %}{% image main_image fill-300x150 class="card-img-top" %}{% endif %}
                 {% endwith %}
-            {% endfor %}
-        </section>
-    {% else %}
-        <div class="col-md-12">
-            <p>Sorry no entries yet, please check back later.</p>
-        </div>
-    {% endif %}
-</section>
-<section>
-    {% for block in page.end %}
-        <article>
-            {% if block.block_type == 'heading' %}
-                <h2 class="text-center">{{ block.value }}</h2>
-            {% elif block.block_type == 'paragraph' %}
-                {{ block.value }}
-            {% elif block.block_type == 'image' %}
-                {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-            {% elif block.block_type == 'embed' %}
-                <div class="youtube mx-auto">{{ block.value }}</div>
+                <div class="card-body">
+                    {% if post.title %}<h5 class="card-title"><a href="{% pageurl post %}">{{ post.title }}</a></h5>
+                    {% endif %}
+                    {% if post.text %}<p class="card-text">{{ post.text | truncatewords:15 | richtext }}</p>{% endif %}
+                    {% if post.date %}<p class="card-text"><small class="text-muted">{{ post.date}}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endwith %}
+            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+        </row>
+    </section>
+    <section>
+        <row class="d-flex flex-row">
             {% endif %}
-        </article>
+            {% endfor %}
+        </row>
+    </section>
+    {% else %}
+    <div class="col-md-12 text-center">
+        <p>Sorry no entries yet, please check back later.</p>
+    </div>
+    {% endif %}
+</article>
+
+
+<article>
+    {% for block in page.end %}
+    <section>
+        {% if block.block_type == 'heading' %}
+        <h2 class="text-center">{{ block.value }}</h2>
+        {% elif block.block_type == 'paragraph' %}
+        {{ block.value }}
+        {% elif block.block_type == 'image' %}
+        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+        {% elif block.block_type == 'embed' %}
+        <div class="youtube mx-auto">{{ block.value }}</div>
+        {% endif %}
+    </section>
     {% endfor %}
-</section>
+</article>
 
 {% endblock content %}
