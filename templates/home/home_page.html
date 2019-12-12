@@ -10,83 +10,108 @@
 
 
 {% block content %}
-        <!-- {% if self.seo_title %}
-            <h1>{{ self.seo_title }}</h1>
-        {% else %}
-            <h1>{{ self.title }}</h1>
-        {% endif %} -->
 
-    <section>
-        {% for block in page.body %}
-            <article>
-                {% if block.block_type == 'heading' %}
-                    <h2 class="text-center">{{ block.value }}</h2>
-                {% elif block.block_type == 'paragraph' %}
-                    {{ block.value }}
-                {% elif block.block_type == 'image' %}
-                    {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-                {% elif block.block_type == 'embed' %}
-                    <div class="youtube mx-auto">{{ block.value }}</div>
-                {% endif %}
-            </article>
-        {% endfor %}
-    </section>
 
-    {% if page.carousel_items.all %}
-        <!-- <section class="bd-example"> -->
-        <div class="carousel-embed">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
+{% if page.heading %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
 
-                {% for item in page.carousel_items.all %}
-                <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                    {% image item.image fill-1080x600 class="d-block img-fluid" alt="..." %}
-                    {% if item.title or item.caption %}
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{ item.title }}</h5>
-                            <p>{{ item.caption }}</p>
-                        </div>
-                        {% endif %}
-                </div>
-                {% endfor %}
+        <h1 class="display-4">{{ page.heading }}</h1>
+        <p class="lead">{{ page.text | richtext }}</p>
+        <p class="lead"><a class="btn btn-primary btn-lg" href="{{ page.buttonUrl }}" role="button">{{ page.buttonLabel }}</a></p>
 
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-            </div>
-        </div>
-        <!-- </section> -->
-    {% endif %}
-
-    <div class="main-text"></div>
-        <section>
-            {% for block in page.end %}
-                <article>
-                    {% if block.block_type == 'heading' %}
-                        <h2 class="text-center">{{ block.value }}</h2>
-                    {% elif block.block_type == 'paragraph' %}
-                        {{ block.value }}
-                    {% elif block.block_type == 'image' %}
-                        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-                    {% elif block.block_type == 'embed' %}
-                        <div class="youtube mx-auto">{{ block.value }}</div>
-                    {% endif %}
-                </article>
-            {% endfor %}
-            </section>
     </div>
+</div>
+{% endif %}
 
-    <!-- <div class="fb-share-button" data-href="http://chandrakumala.pythonanywhere.com/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fchandrakumala.pythonanywhere.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
+<!-- 
+{% if page.body %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+        <h1 class="display-4">{{ block.value }}</h1>
+        {% elif block.block_type == 'paragraph' %}
+        <p class="lead">{{ block.value }}</p>
+        {% elif block.block_type == 'image' %}
+        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+        {% elif block.block_type == 'embed' %}
+        <p class="lead"><a class="btn btn-primary btn-lg" href="{{ block.value }}" role="button">Learn more</a></p>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %} -->
+
+<!-- <section>
+    {% for block in page.body %}
+    {% if block.block_type == 'heading' %}
+    <h2 class="text-center">{{ block.value }}</h2>
+    {% elif block.block_type == 'paragraph' %}
+    {{ block.value }}
+    {% elif block.block_type == 'image' %}
+    {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+    {% elif block.block_type == 'embed' %}
+    <div class="youtube mx-auto">{{ block.value }}</div>
+    {% endif %}
+    {% endfor %}
+</section> -->
+
+{% if page.carousel_items.all %}
+<!-- <section class="bd-example"> -->
+<div class="carousel-embed">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+
+            {% for item in page.carousel_items.all %}
+            <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                {% image item.image fill-1080x600 class="d-block img-fluid" alt="..." %}
+                {% if item.title or item.caption %}
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ item.title }}</h5>
+                    <p>{{ item.caption }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!-- </section> -->
+{% endif %}
+
+<div class="main-text"></div>
+<section>
+    {% for block in page.end %}
+    <article>
+        {% if block.block_type == 'heading' %}
+        <h2 class="text-center">{{ block.value }}</h2>
+        {% elif block.block_type == 'paragraph' %}
+        {{ block.value }}
+        {% elif block.block_type == 'image' %}
+        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
+        {% elif block.block_type == 'embed' %}
+        <div class="youtube mx-auto">{{ block.value }}</div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+</div>
+
+<!-- <div class="fb-share-button" data-href="http://chandrakumala.pythonanywhere.com/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fchandrakumala.pythonanywhere.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
 
 {% endblock content %}
