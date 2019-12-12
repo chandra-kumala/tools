@@ -72,6 +72,10 @@ article {
     padding: 1;
 }
 
+li{
+    list-style-type: disc;
+}
+
 /* Fix bulleted lists and paragraph spacing  */
 
 .rich-text ul {
