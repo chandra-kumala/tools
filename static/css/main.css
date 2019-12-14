@@ -15,7 +15,8 @@ section{
 }   
 
 * {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Open Sans', sans-serif;
+}
 
 .jumbotron{
     border-radius: 25px;
@@ -157,6 +158,13 @@ li{
 
 // Medium devices (tablets, less than 992px)
 @media (max-width: 991.98px) { 
+    *{
+        font-size: 150%;
+
+    } 
+    .brand {
+        font-size: 150%;
+    }
     section{
         max-width: 600px;
     }
