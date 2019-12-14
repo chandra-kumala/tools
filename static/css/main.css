@@ -16,6 +16,10 @@ section{
 
 * {
     font-family: 'Playfair Display', serif;
+
+.jumbotron{
+    border-radius: 25px;
+    background: rgba(88, 102, 161, 0.3);
 }
 
 .brand {
