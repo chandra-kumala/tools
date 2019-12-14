@@ -13,6 +13,7 @@
 
 
 {% if page.heading %}
+
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
 
@@ -23,39 +24,6 @@
     </div>
 </div>
 {% endif %}
-
-<!-- 
-{% if page.body %}
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-        <h1 class="display-4">{{ block.value }}</h1>
-        {% elif block.block_type == 'paragraph' %}
-        <p class="lead">{{ block.value }}</p>
-        {% elif block.block_type == 'image' %}
-        {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-        {% elif block.block_type == 'embed' %}
-        <p class="lead"><a class="btn btn-primary btn-lg" href="{{ block.value }}" role="button">Learn more</a></p>
-        {% endif %}
-        {% endfor %}
-    </div>
-</div>
-{% endif %} -->
-
-<!-- <section>
-    {% for block in page.body %}
-    {% if block.block_type == 'heading' %}
-    <h2 class="text-center">{{ block.value }}</h2>
-    {% elif block.block_type == 'paragraph' %}
-    {{ block.value }}
-    {% elif block.block_type == 'image' %}
-    {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
-    {% elif block.block_type == 'embed' %}
-    <div class="youtube mx-auto">{{ block.value }}</div>
-    {% endif %}
-    {% endfor %}
-</section> -->
 
 {% if page.carousel_items.all %}
 <!-- <section class="bd-example"> -->
