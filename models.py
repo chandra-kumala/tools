@@ -38,22 +38,8 @@ class Dreamer(models.Model):
 
     class Meta:
         """Abstract Model."""
-
-        abstract = True
-
-
-class Streamer(models.Model):
-    ''' Add SINGLE streamer field to a page. '''
-    body = StreamField(CommonStreamBlock(), null=True, blank=True,)
-
-    panels = [
-        StreamFieldPanel('body'),
-    ]
-
-    class Meta:
-        """Abstract Model."""
-
-        abstract = True
+        
+        abstract = True 
 
 
 class Seo(models.Model):
