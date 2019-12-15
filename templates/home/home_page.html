@@ -20,7 +20,7 @@
 
         <h1 class="display-4">{{ page.heading }}</h1>
         {% if page.text %}<p class="lead">{{ page.text | richtext }}</p>{% endif %}
-        {% if page.buttonLink %}<p class="lead"><a class="btn btn-primary btn-lg" href="{{ page.buttonUrl }}" role="button">{{ page.buttonLabel }}</a></p>{% endif %}
+        {% if page.buttonUrl and page.buttonLabel %}<p class="lead"><a class="btn btn-primary btn-lg" href="{{ page.buttonUrl }}" role="button">{{ page.buttonLabel }}</a></p>{% endif %}
 
     </div>
 </div>
