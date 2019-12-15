@@ -64,7 +64,7 @@
 
 <div class="main-text"></div>
 <section>
-    {% for block in page.end %}
+    {% for block in page.body %}
     <article>
         {% if block.block_type == 'heading' %}
         <h2 class="text-center">{{ block.value }}</h2>
