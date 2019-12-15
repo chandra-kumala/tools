@@ -2,9 +2,8 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.blocks import URLBlock, TextBlock, StructBlock
+from wagtail.core.blocks import URLBlock, TextBlock, StructBlock, StreamBlock, CharBlock, RichTextBlock
 from wagtail.embeds.blocks import EmbedBlock
-from wagtail.core import blocks
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
@@ -13,14 +12,14 @@ from wagtail.search import index
 from wagtail.admin.edit_handlers import FieldPanel
 
 
-class CommonStreamBlock(blocks.StreamBlock):
-    heading = blocks.CharBlock(classname="full title")
-    paragraph = blocks.RichTextBlock()
-    embed = EmbedBlock()
-    image = ImageChooserBlock()
-    buttonLink = blocks.StructBlock([
-        ('text', blocks.TextBlock()),
-        ('link', blocks.URLBlock(label="external URL", required=False)),
+class CommonStreamBlock(StreamBlock):
+    heading = CharBlock(classname="full title", blank=True)
+    paragraph = RichTextBlock(blank=True)
+    embed = EmbedBlock(blank=True)
+    image = ImageChooserBlock(blank=True)
+    buttonLink = StructBlock([
+        ('text', TextBlock(blank=True)),
+        ('link', URLBlock(label="external URL", blank=True)),
     ])
 
     class Meta:
