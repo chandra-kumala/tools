@@ -14,10 +14,6 @@ section{
     text-align: justify;	    
 }   
 
-* {
-    font-family: 'Open Sans', sans-serif;
-}
-
 .jumbotron{
     border-radius: 25px;
     background: rgba(88, 102, 161, 0.3);
