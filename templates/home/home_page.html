@@ -74,6 +74,8 @@
         {% image block.value width-400 class="img-fluid" alt="Responsive image" %}
         {% elif block.block_type == 'embed' %}
         <div class="youtube mx-auto">{{ block.value }}</div>
+        {% elif block.block_type == 'buttonLink' %}
+        <div class="row justify-content-center"><a class=" btn btn-primary btn-lg" href="{{ block.value.link }}" role="button">{{ block.value.text }}</a></div>
         {% endif %}
     </article>
     {% endfor %}
