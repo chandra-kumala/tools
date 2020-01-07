@@ -138,10 +138,13 @@ class ItemImage(Orderable):
     ]
 
 
-class GoogleMaps(Page, Dreamer, Seo):
+class GoogleMaps(Page, Seo):
     template = 'home/google_maps.html'
     parent_page_types = ['home.HomePage']
     subpage_types = ['tools.Item']
+
+    body = StreamField(CommonStreamBlock(), null=True, blank=True,)
+    end = StreamField(CommonStreamBlock(), null=True, blank=True,)
 
     mapurl = models.CharField(
         "Google Map URL", max_length=1500, null=True, blank=True)
