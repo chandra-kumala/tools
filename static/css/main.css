@@ -2,6 +2,10 @@ main {
     text-align: center;
 }
 
+form {
+    text-align: left;
+}
+
 article{
     text-align: justify;
 }
