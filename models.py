@@ -140,7 +140,7 @@ class ItemImage(Orderable):
 
 class GoogleMaps(Page, Seo):
     template = 'home/google_maps.html'
-    parent_page_types = ['home.HomePage']
+    
     subpage_types = ['tools.Item']
 
     body = StreamField(CommonStreamBlock(), null=True, blank=True,)
@@ -172,7 +172,6 @@ class GoogleMaps(Page, Seo):
 
 class GoogleCalendar(Page, Dreamer, Seo):
     template = 'home/google_calendar.html'
-    parent_page_types = ['home.HomePage']
     subpage_types = ['tools.Item']
 
     calendarurl = models.URLField("URL for calendar", null=True, blank=True)
