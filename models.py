@@ -56,7 +56,7 @@ class Seo(models.Model):
 
     panels = [
         ImageChooserPanel('seo_image'),
-        ImageChooserPanel('google_ad_code'),
+        FieldPanel('google_ad_code'),
     ]
 
     class Meta:
