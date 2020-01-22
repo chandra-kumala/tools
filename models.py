@@ -44,6 +44,7 @@ class Dreamer(models.Model):
 
 class Seo(models.Model):
     ''' Add extra seo fields to pages such as icons. '''
+    google_ad_code = models.CharField(max_length=50, null=True, blank=True)
     seo_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -55,6 +56,7 @@ class Seo(models.Model):
 
     panels = [
         ImageChooserPanel('seo_image'),
+        ImageChooserPanel('google_ad_code'),
     ]
 
     class Meta:
