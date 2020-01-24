@@ -1,15 +1,14 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.blocks import URLBlock, TextBlock, StructBlock, StreamBlock, CharBlock, RichTextBlock
 from wagtail.embeds.blocks import EmbedBlock
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.search import index
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class CommonStreamBlock(StreamBlock):
@@ -55,8 +54,14 @@ class Seo(models.Model):
     )
 
     panels = [
-        ImageChooserPanel('seo_image'),
-        FieldPanel('google_ad_code'),
+        MultiFieldPanel(
+            [
+                ImageChooserPanel('seo_image'),
+                FieldPanel('google_ad_code'),
+            ],
+            heading="Additional SEO options ...",
+        )
+
     ]
 
     class Meta:
