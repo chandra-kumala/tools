@@ -1,15 +1,14 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.blocks import URLBlock, TextBlock, StructBlock, StreamBlock, CharBlock, RichTextBlock
 from wagtail.embeds.blocks import EmbedBlock
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.search import index
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class CommonStreamBlock(StreamBlock):
@@ -44,6 +43,7 @@ class Dreamer(models.Model):
 
 class Seo(models.Model):
     ''' Add extra seo fields to pages such as icons. '''
+    google_ad_code = models.CharField(max_length=50, null=True, blank=True)
     seo_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -54,7 +54,14 @@ class Seo(models.Model):
     )
 
     panels = [
-        ImageChooserPanel('seo_image'),
+        MultiFieldPanel(
+            [
+                ImageChooserPanel('seo_image'),
+                FieldPanel('google_ad_code'),
+            ],
+            heading="Additional SEO options ...",
+        )
+
     ]
 
     class Meta:
@@ -140,7 +147,7 @@ class ItemImage(Orderable):
 
 class GoogleMaps(Page, Seo):
     template = 'home/google_maps.html'
-    parent_page_types = ['home.HomePage']
+    
     subpage_types = ['tools.Item']
 
     body = StreamField(CommonStreamBlock(), null=True, blank=True,)
@@ -172,7 +179,6 @@ class GoogleMaps(Page, Seo):
 
 class GoogleCalendar(Page, Dreamer, Seo):
     template = 'home/google_calendar.html'
-    parent_page_types = ['home.HomePage']
     subpage_types = ['tools.Item']
 
     calendarurl = models.URLField("URL for calendar", null=True, blank=True)
