@@ -145,65 +145,6 @@ class ItemImage(Orderable):
     ]
 
 
-class GoogleMaps(Page, Seo):
-    template = 'home/google_maps.html'
-    
-    subpage_types = ['tools.Item']
-
-    body = StreamField(CommonStreamBlock(), null=True, blank=True,)
-    end = StreamField(CommonStreamBlock(), null=True, blank=True,)
-
-    mapurl = models.CharField(
-        "Google Map URL", max_length=1500, null=True, blank=True)
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['menuitems'] = request.site.root_page.get_descendants(
-            inclusive=True).live().in_menu()
-
-        return context
-
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-        index.SearchField('end'),
-    ]
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-        FieldPanel('mapurl'),
-        StreamFieldPanel('end'),
-    ]
-
-    promote_panels = Page.promote_panels + Seo.panels
-
-
-class GoogleCalendar(Page, Dreamer, Seo):
-    template = 'home/google_calendar.html'
-    subpage_types = ['tools.Item']
-
-    calendarurl = models.URLField("URL for calendar", null=True, blank=True)
-
-    def get_context(self, request):
-        # Update context to include only published posts, ordered by reverse-chron
-        context = super().get_context(request)
-        context['menuitems'] = request.site.root_page.get_descendants(
-            inclusive=True).live().in_menu()
-
-        return context
-
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-        index.SearchField('end'),
-    ]
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-        FieldPanel('calendarurl'),
-        StreamFieldPanel('end'),
-    ]
-
-    promote_panels = Page.promote_panels + Seo.panels
-
 
 @register_snippet
 class Social(models.Model):
