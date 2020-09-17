@@ -79,8 +79,7 @@ class Index(Page, Dreamer, Seo):
         context = super().get_context(request)
         items = self.get_children().live().order_by('-first_published_at')
         context['items'] = items
-        context['menuitems'] = request.site.root_page.get_descendants(
-            inclusive=True).live().in_menu()
+        context['menuitems'] = Site.find_for_request(request).root_page.get_descendants(inclusive=True).live().in_menu()
 
         return context
 
