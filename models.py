@@ -144,7 +144,6 @@ class ItemImage(Orderable):
     ]
 
 
-
 @register_snippet
 class Social(models.Model):
     css = models.CharField("List CSS Classes (eg. text-primary py-0)",
