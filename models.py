@@ -106,7 +106,7 @@ class Item(Page, Seo):
         items = self.get_siblings(
             inclusive=False).live().order_by('-first_published_at')
         context['items'] = items
-        context['menuitems'] = request.site.root_page.get_descendants(
+        context['menuitems'] = Site.find_for_request(request).root_page.get_descendants(
             inclusive=True).live().in_menu()
 
         return context
