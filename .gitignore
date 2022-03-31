@@ -1,7 +1,7 @@
 # Project Ignore Files
-migrations/__pycache__/
-migrations/!__init__.py
-migrations/*
+#migrations/__pycache__/
+#migrations/!__init__.py
+#migrations/*
 nohup.out
 __pycache__
 
